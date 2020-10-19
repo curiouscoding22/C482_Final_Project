@@ -1,3 +1,5 @@
+package sample;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("Sage 100 Constructor");
-        primaryStage.setScene(new Scene(root, 1000, 500));
+        primaryStage.setScene(new Scene(root, 800, 400));
         primaryStage.show();
     }
 
