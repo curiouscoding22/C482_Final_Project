@@ -17,10 +17,10 @@ public class mainScreen implements Initializable {
 
 
     //Search the Part Table by Part ID or Name
-    public void searchPartTable(ActionEvent actionEvent) {
+    /*public void searchPartTable(ActionEvent actionEvent) {
+        String name = partSearchField.getText();
 
-
-    }
+    }*/
 
 
 
