@@ -4,12 +4,16 @@ import Model.InHousePart;
 import Model.OutSourcedPart;
 import Model.Part;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-public class ModifyPartForm {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ModifyPartForm implements Initializable {
 
     @FXML
     private TextField partIDField;
@@ -38,11 +42,15 @@ public class ModifyPartForm {
     @FXML private Label sourceLabel;
     private ToggleGroup source;
 
-
-
-
-
     private Part part;
+
+    public void changeSourceLabel(){
+        if(source.getSelectedToggle().equals(inhouseRadioButton)){
+            sourceLabel.setText("Machine ID");
+        }else if(source.getSelectedToggle().equals(outsourcedRadioButton)){
+            sourceLabel.setText("Company Name");
+        }
+    }
 
     public void retrieveSelectPart(Part selectedPart) {
         this.part = selectedPart;
@@ -67,6 +75,15 @@ public class ModifyPartForm {
         }
 
 
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        source = new ToggleGroup();
+        this.inhouseRadioButton.setToggleGroup(source);
+        this.outsourcedRadioButton.setToggleGroup(source);
 
     }
 }
