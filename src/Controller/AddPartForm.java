@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javax.xml.bind.ValidationException;
 
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class AddPartForm implements Initializable{
     @FXML private TextField partNameField;
     @FXML private TextField partInvCountField;
     @FXML private TextField partPriceField;
-    @FXML private TextField partMaxCostField;
+    @FXML private TextField partMaxInvField;
     @FXML private TextField partMinCostField;
     @FXML private TextField partSourceField;
 
@@ -54,19 +55,6 @@ public class AddPartForm implements Initializable{
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        source = new ToggleGroup();
-        this.inhouseRadioButton.setToggleGroup(source);
-        this.outsourcedRadioButton.setToggleGroup(source);
-
-        idNumber = assignPartNumber();
-        partIDField.setText(Integer.toString(idNumber));
-
-
-    }
-
     boolean isMatch = false;
 
     public int assignPartNumber(){
@@ -83,29 +71,171 @@ public class AddPartForm implements Initializable{
     }
 
 
-    public void saveNewPart(ActionEvent actionEvent) throws IOException {
-        int addID = Integer.parseInt(partIDField.getText());
-        String addName = partNameField.getText();
-        double addPrice = Double.parseDouble(partPriceField.getText());
-        int addInv = Integer.parseInt(partInvCountField.getText());
-        int addMax = Integer.parseInt(partMaxCostField.getText());
-        int addMin = Integer.parseInt(partMinCostField.getText());
-        try{
-            if(source.getSelectedToggle().equals(inhouseRadioButton)){
-                int addMachineID = Integer.parseInt(partSourceField.getText());
-                InHousePart newPart = new InHousePart(addID, addName, addPrice, addInv, addMax, addMin, addMachineID);
-                Inventory.addPart(newPart);
-            }
-            if(source.getSelectedToggle().equals(outsourcedRadioButton)){
-                String addCompany = partSourceField.getText();
-                Inventory.addPart(new OutSourcedPart(addID, addName, addPrice, addInv, addMax, addMin, addCompany));
-            }
+    public void saveNewPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        int newID = Integer.parseInt(partIDField.getText());
+        String newName = partNameField.getText();
+        String newInv = partInvCountField.getText();
+        String newPrice = partPriceField.getText();
+        String newMax = partMaxInvField.getText();
+        String newMin = partMinCostField.getText();
+        String newSource = partSourceField.getText();
+
+        if(source.getSelectedToggle().equals(inhouseRadioButton)) {
+            InHousePart newInhousePart = new InHousePart();
+            newInhousePart.setId(newID);
+            newInhousePart.setName(newName);
+            try {
+                newInhousePart.setStock(Integer.parseInt(newInv));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Inventory count must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter an amount");
+                alert.showAndWait();
+            }
+            try {
+                newInhousePart.setPrice(Double.parseDouble(newPrice));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Price must be entered in XX.XX format");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter a price");
+                alert.showAndWait();
+            }
+            try {
+                newInhousePart.setMax(Integer.parseInt(newMax));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Inventory maximum must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter an amount");
+                alert.showAndWait();
+            }
+            try {
+                newInhousePart.setMin(Integer.parseInt(newMin));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Inventory maximum must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter an amount");
+                alert.showAndWait();
+            }
+            try {
+                newInhousePart.setMachineID(Integer.parseInt(newSource));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Machine ID must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter the Machine ID number");
+                alert.showAndWait();
+            }
+            if(isValid(newInhousePart)){
+                Inventory.addPart(newInhousePart);
+                Stage stage = (Stage) cancelButton.getScene().getWindow();
+                stage.close();
+            }
         }
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
+
+        if(source.getSelectedToggle().equals(outsourcedRadioButton)) {
+            OutSourcedPart newOutsourcePart = new OutSourcedPart();
+            newOutsourcePart.setId(newID);
+            newOutsourcePart.setName(newName);
+            try {
+                newOutsourcePart.setStock(Integer.parseInt(newInv));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Inventory count must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter an amount");
+                alert.showAndWait();
+            }
+            try {
+                newOutsourcePart.setPrice(Double.parseDouble(newPrice));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Price must be entered in XX.XX format");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter a price");
+                alert.showAndWait();
+            }
+            try {
+                newOutsourcePart.setMax(Integer.parseInt(newMax));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Inventory maximum must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter an amount");
+                alert.showAndWait();
+            }
+            try {
+                newOutsourcePart.setMin(Integer.parseInt(newMin));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Inventory maximum must be a number");
+                alert.showAndWait();
+
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter an amount");
+                alert.showAndWait();
+            }
+            try {
+                newOutsourcePart.setCompanyName(newSource);
+            } catch (NullPointerException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Please enter the Company Name");
+                alert.showAndWait();
+            }
+            if(isValid(newOutsourcePart)){
+                Inventory.addPart(newOutsourcePart);
+                Stage stage = (Stage) cancelButton.getScene().getWindow();
+                stage.close();
+            }
+        }
     }
 
     public void cancelAddPart(ActionEvent actionEvent) throws IOException {
@@ -118,6 +248,66 @@ public class AddPartForm implements Initializable{
                 stage.close();
             }
         });
+    }
+
+    public boolean isValid(Part part) throws ValidationException {
+
+        String name = partNameField.getText();
+        int inv = Integer.parseInt(partInvCountField.getText());
+        Double price = Double.parseDouble(partPriceField.getText());
+        int max = Integer.parseInt(partMaxInvField.getText());
+        int min = Integer.parseInt(partMinCostField.getText());
+
+        if(name.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Name field can not be empty");
+            alert.showAndWait();
+            throw new ValidationException("Name field can not be empty");
+        }
+        if(min > max){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Minimum inventory can not be greater than maximum");
+            alert.showAndWait();
+            throw new ValidationException("Minimum inventory can not be greater than maximum");
+        }
+        if(price < 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Price can not be less than zero");
+            alert.showAndWait();
+            throw new ValidationException("Price can not be less than zero");
+        }
+        if(inv < min){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Inventory can not be less than minimum");
+            alert.showAndWait();
+            throw new ValidationException("Inventory can not be less than minimum");
+        }
+        if(inv > max){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Input Error");
+            alert.setContentText("Inventory can not be greater than maximum");
+            alert.showAndWait();
+            throw new ValidationException("Inventory can not be greater than maximum");
+        }
+        return true;
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        source = new ToggleGroup();
+        this.inhouseRadioButton.setToggleGroup(source);
+        this.outsourcedRadioButton.setToggleGroup(source);
+
+        idNumber = assignPartNumber();
+        partIDField.setText(Integer.toString(idNumber));
+
+
     }
 
 }
