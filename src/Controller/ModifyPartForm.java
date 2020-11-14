@@ -40,7 +40,7 @@ public class ModifyPartForm implements Initializable {
     @FXML private RadioButton inhouseRadioButton;
     @FXML private RadioButton outsourcedRadioButton;
     @FXML private Label sourceLabel;
-    private ToggleGroup source;
+    @FXML private ToggleGroup source;
 
     private Part part;
 

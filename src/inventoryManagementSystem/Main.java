@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/mainScreen.fxml"));
         primaryStage.setTitle("Sage 100 Constructor");
-        primaryStage.setScene(new Scene(root, 800, 400));
+        primaryStage.setScene(new Scene(root, 1000, 457));
         primaryStage.show();
     }
 

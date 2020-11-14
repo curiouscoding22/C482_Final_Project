@@ -10,45 +10,46 @@ public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
-    public void addPart(Part newPart){
+
+
+    public static void addPart(Part newPart){
         allParts.add(newPart);
     }
 
-    public void addProduct(Product newProduct){
+    public static void addProduct(Product newProduct){
         allProducts.add(newProduct);
     }
 
-    public static Part lookupPart(int partID){
-        Part temp = null;
-        for (Part allPart : allParts) {
-            if (allPart.getId() == partID) {
-                temp = allPart;
+    public static Part partIDLookup(int partID){
+        for (Part i : allParts) {
+            if (i.getId() == partID) {
+                return i;
             }
         }
-        return temp;
+        return null;
     }
 
-    public static Product lookupProduct(int productID){
+    public static Product productIDLookup(int productID){
         for(Product prod : allProducts){
-            if(prod.getId() == productID){
+            if(prod.getProductID() == productID){
                 return prod;
             }
         }
         return null;
     }
 
-    public static Part lookupPart(String searchedPart){
-        for(Part part:allParts){
-            if(part.getName().toLowerCase().equals(searchedPart.toLowerCase())){
-                return part;
+    public static Part lookupPartName(String searchedPart){
+        for(Part i:allParts){
+            if(i.getName().toLowerCase().equals(searchedPart.toLowerCase())){
+                return i;
             }
         }
         return null;
     }
 
-    public static Product lookupProduct(String searchedProduct){
+    public static Product lookupProductName(String searchedProduct){
         for(Product prod : allProducts){
-            if(prod.getName().toLowerCase().equals(searchedProduct.toLowerCase())){
+            if(prod.getProductName().toLowerCase().contains(searchedProduct.toLowerCase())){
                 return prod;
             }
         }
@@ -65,7 +66,7 @@ public class Inventory {
 
     public static void updateProduct(Product selectedProduct){
         for(int i = 0; i<allProducts.size(); i++){
-            if(allProducts.get(i).getId() == selectedProduct.getId()){
+            if(allProducts.get(i).getProductID() == selectedProduct.getProductID()){
                 allProducts.set(i, selectedProduct);
             }
         }

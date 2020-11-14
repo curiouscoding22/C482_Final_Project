@@ -1,10 +1,12 @@
-package inventoryManagementSystem;
+package Model;
+
+import Model.Part;
 
 public class OutSourcedPart extends Part {
 
     private String companyName;
 
-    public OutSourcedPart(int id, String name, double price, int stock, int min, int max) {
+    public OutSourcedPart(int id, String name, double price, int stock, int min, int max, String companyName) {
         super(id, name, price, stock, min, max);
     }
 

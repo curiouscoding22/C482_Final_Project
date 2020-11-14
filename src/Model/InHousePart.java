@@ -1,10 +1,12 @@
-package inventoryManagementSystem;
+package Model;
 
-public class InHousePart extends Part{
+import Model.Part;
+
+public class InHousePart extends Part {
 
     private int machineID;
 
-    public InHousePart(int id, String name, double price, int stock, int min, int max) {
+    public InHousePart(int id, String name, double price, int stock, int min, int max, int machineID) {
         super(id, name, price, stock, min, max);
     }
 

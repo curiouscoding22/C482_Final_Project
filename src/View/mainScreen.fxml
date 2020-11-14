@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="1000.0" style="-fx-border-radius: 120;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.mainScreen">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="14.0" prefHeight="48.0" prefWidth="292.0" text="Inventory Management System">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <AnchorPane layoutX="33.0" layoutY="59.0" prefHeight="349.0" prefWidth="464.0" style="-fx-border-color: black; -fx-border-radius: 10;">
+         <children>
+            <TableView id="partsTable" fx:id="partsTable" layoutX="13.0" layoutY="55.0" prefHeight="240.0" prefWidth="438.0">
+              <columns>
+                <TableColumn fx:id="partIDColumn" prefWidth="75.0" text="Part ID" />
+                <TableColumn fx:id="partNameColumn" prefWidth="75.0" text="Part Name" />
+                  <TableColumn fx:id="partInventoryColumn" prefWidth="100.0" text="Inventory Level" />
+                  <TableColumn fx:id="partPriceColumn" prefWidth="187.0" text="Price/Cost Per Unit" />
+              </columns>
+            </TableView>
+            <Button id="addPartButton" fx:id="addPartButton" layoutX="281.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#onAddPartClicked" text="Add" />
+            <Button id="modifyPartButton" fx:id="modifyPartButton" layoutX="328.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#onModifyPartClicked" text="Modify" />
+            <Button id="deletePartButton" fx:id="deletePartButton" layoutX="392.0" layoutY="307.0" mnemonicParsing="false" onAction="#onDeletePartClicked" text="Delete" />
+            <Label layoutX="32.0" layoutY="31.0" text="Parts">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <TextField id="partSearchField" fx:id="partSearchField" layoutX="247.0" layoutY="29.0" prefHeight="25.0" prefWidth="203.0" promptText="Search by Part ID or Name" />
+            <Button fx:id="partSearchButton" layoutX="195.0" layoutY="29.0" mnemonicParsing="false" onAction="#searchHandle" text="Search" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="500.0" layoutY="59.0" prefHeight="349.0" prefWidth="464.0" style="-fx-border-color: black; -fx-border-radius: 10;">
+         <children>
+            <TableView id="productsTable" fx:id="productsTable" layoutX="14.0" layoutY="55.0" prefHeight="240.0" prefWidth="438.0">
+              <columns>
+                <TableColumn fx:id="productIDColumn" prefWidth="83.0" text="Product ID" />
+                <TableColumn fx:id="productNameColumn" prefWidth="101.0" text="Product Name" />
+                  <TableColumn fx:id="productInventoryColumn" prefWidth="110.0" text="Inventory Level" />
+                  <TableColumn fx:id="productPriceColumn" prefWidth="143.0" text="Price/Cost Per Unit" />
+              </columns>
+            </TableView>
+            <Button id="deleteProductButton" fx:id="productDeleteButton" layoutX="392.0" layoutY="307.0" mnemonicParsing="false" text="Delete" />
+            <Button id="modifyPartButton" fx:id="modifyProductButton" layoutX="328.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#onModifyProductClicked" text="Modify" />
+            <Button id="addProductButton" fx:id="addProductButton" layoutX="281.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#onAddProductClicked" text="Add" />
+            <TextField id="searchProducts" fx:id="productSearchField" layoutX="189.0" layoutY="28.0" prefHeight="25.0" prefWidth="203.0" promptText="Search by Product ID or Name" />
+            <Label layoutX="32.0" layoutY="31.0" text="Products">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button id="exitAppButton" fx:id="exiitApplicationButton" layoutX="891.0" layoutY="408.0" mnemonicParsing="false" text="Exit" />
+   </children>
+</Pane>

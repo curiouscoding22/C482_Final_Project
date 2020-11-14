@@ -4,15 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="550.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventoryManagementSystem.AddProductForm">
+<AnchorPane prefHeight="550.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddProductForm">
    <children>
       <Label layoutX="45.0" layoutY="37.0" text="Add Product">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="634.0" layoutY="33.0" />
+      <TextField layoutX="609.0" layoutY="33.0" prefHeight="26.0" prefWidth="174.0" promptText="Search by Part ID or Name" />
       <TableView layoutX="381.0" layoutY="67.0" prefHeight="168.0" prefWidth="402.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Part ID" />
@@ -37,8 +36,8 @@
       <Label layoutX="51.0" layoutY="179.0" text="Name" />
       <Label layoutX="51.0" layoutY="233.0" text="Inv" />
       <Label layoutX="52.0" layoutY="287.0" text="Price" />
-      <TextField layoutX="105.0" layoutY="121.0" prefHeight="26.0" prefWidth="112.0" />
-      <TextField layoutX="105.0" layoutY="175.0" prefHeight="26.0" prefWidth="112.0" />
+      <TextField layoutX="105.0" layoutY="121.0" prefHeight="26.0" prefWidth="130.0" promptText="Auto Gen - Disabled" />
+      <TextField layoutX="105.0" layoutY="175.0" prefHeight="26.0" prefWidth="130.0" />
       <TextField layoutX="105.0" layoutY="229.0" prefHeight="26.0" prefWidth="91.0" />
       <TextField layoutX="105.0" layoutY="283.0" prefHeight="26.0" prefWidth="91.0" />
       <Label layoutX="53.0" layoutY="335.0" text="Max" />
