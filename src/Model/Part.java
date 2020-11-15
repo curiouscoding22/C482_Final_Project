@@ -12,7 +12,7 @@ public abstract class Part {
     public Part(){}
 
     /**
-     * Constructor for the Part class
+     * Constructor for the Part class. This creates Part objects.
      * @param id
      * @param name
      * @param price
