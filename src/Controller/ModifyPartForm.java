@@ -54,29 +54,35 @@ public class ModifyPartForm implements Initializable {
 
     public void retrieveSelectPart(Part selectedPart) {
         this.part = selectedPart;
-        partIDField.setText(Integer.toString(selectedPart.getId()));
-        partNameField.setText(selectedPart.getName());
-        partPriceField.setText(Double.toString(selectedPart.getPrice()));
-        partInvField.setText(Integer.toString(selectedPart.getStock()));
-        partMaxInvField.setText(Integer.toString(selectedPart.getMax()));
-        partMinInvField.setText(Integer.toString(selectedPart.getMin()));
+
         if(selectedPart instanceof InHousePart){
-            InHousePart inhouse = (InHousePart)selectedPart;
-            partSourceField.setText(Integer.toString(selectedPart.getId()));
             sourceLabel.setText("Machine ID");
+            InHousePart inhouse = (InHousePart)selectedPart;
+            partIDField.setText(Integer.toString(inhouse.getId()));
+            partNameField.setText(inhouse.getName());
+            partPriceField.setText(Double.toString(inhouse.getPrice()));
+            partInvField.setText(Integer.toString(inhouse.getStock()));
+            partMaxInvField.setText(Integer.toString(inhouse.getMax()));
+            partMinInvField.setText(Integer.toString(inhouse.getMin()));
+            partSourceField.setText(Integer.toString(inhouse.getMachineID()));
             inhouseRadioButton.setSelected(true);
-            outsourcedRadioButton.setSelected(false);
+
         } else if(selectedPart instanceof OutSourcedPart){
-            OutSourcedPart outsourced = (OutSourcedPart)selectedPart;
-            partSourceField.setText(((OutSourcedPart) selectedPart).getCompanyName());
             sourceLabel.setText("Company Name");
-            inhouseRadioButton.setSelected(false);
+            OutSourcedPart outsourced = (OutSourcedPart)selectedPart;
+            partIDField.setText(Integer.toString(outsourced.getId()));
+            partNameField.setText(outsourced.getName());
+            partPriceField.setText(Double.toString(outsourced.getPrice()));
+            partInvField.setText(Integer.toString(outsourced.getStock()));
+            partMaxInvField.setText(Integer.toString(outsourced.getMax()));
+            partMinInvField.setText(Integer.toString(outsourced.getMin()));
+            partSourceField.setText(outsourced.getCompanyName());
             outsourcedRadioButton.setSelected(true);
+            inhouseRadioButton.setSelected(false);
         }
-
-
-
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
