@@ -21,12 +21,12 @@
       <TextField id="partNameField" fx:id="partNameField" layoutX="131.0" layoutY="134.0" />
       <TextField id="partInvCountField" fx:id="partInvCountField" layoutX="131.0" layoutY="176.0" />
       <TextField id="partPriceField" fx:id="partPriceField" layoutX="131.0" layoutY="218.0" />
-      <TextField id="partMaxCostField" fx:id="partMaxCostField" layoutX="131.0" layoutY="260.0" />
+      <TextField id="partMaxCostField" fx:id="partMaxInvField" layoutX="131.0" layoutY="260.0" />
       <TextField id="partSourceField" fx:id="partSourceField" layoutX="131.0" layoutY="302.0" />
       <Button fx:id="saveButton" layoutX="344.0" layoutY="400.0" mnemonicParsing="false" onAction="#saveNewPart" text="Save" />
       <Button id="cancelButton" fx:id="cancelButton" layoutX="411.0" layoutY="400.0" mnemonicParsing="false" onAction="#cancelAddPart" text="Cancel" />
       <Label layoutX="300.0" layoutY="264.0" text="Min" />
-      <TextField id="partMinCostField" fx:id="partMinCostField" layoutX="326.0" layoutY="260.0" />
+      <TextField id="partMinInvField" fx:id="partMinInvField" layoutX="326.0" layoutY="260.0" />
       <RadioButton id="inhouseRadioButton" fx:id="inhouseRadioButton" layoutX="277.0" layoutY="41.0" mnemonicParsing="false" onAction="#changeSourceLabel" selected="true" text="In-House" />
       <RadioButton id="outsourcedRadioButton" fx:id="outsourcedRadioButton" layoutX="368.0" layoutY="41.0" mnemonicParsing="false" onAction="#changeSourceLabel" text="Outsourced" />
    </children>

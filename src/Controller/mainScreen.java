@@ -9,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -19,13 +17,13 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static Model.Inventory.lookupPartName;
-import static Model.Inventory.partIDLookup;
 
 
 public class mainScreen implements Initializable {
 
+
     static boolean entered;
+
 
     @FXML
     private TextField partSearchField;
@@ -50,53 +48,39 @@ public class mainScreen implements Initializable {
 
     public void searchHandle(ActionEvent actionEvent) {
         String searchText = partSearchField.getText();
-        ObservableList<Part> returnedParts = searchByPartName(searchText);
-        if(returnedParts.size() == 0){
-            try{
+        if(searchText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed Search");
+            alert.setContentText("Enter the part name or ID number to search");
+            alert.showAndWait();
+        }
+        ObservableList<Part> returnedParts = Inventory.lookupPart(searchText);
+        if (returnedParts.size() == 0) {
+            try {
                 int partIDNumber = Integer.parseInt(searchText);
-                Part p = searchByPartID(partIDNumber);
-                if(p != null){
+                Part p = Inventory.lookupPart(partIDNumber);
+                if (p != null) {
                     returnedParts.add(p);
                 }
-            } catch (NumberFormatException e){
-                //ignore exception
+            } catch (NumberFormatException e) {
+                    //ignore exception
             }
         }
         partsTable.setItems(returnedParts);
         partSearchField.setText("");
     }
 
-    private ObservableList<Part> searchByPartName(String partialPart){
-        ObservableList<Part> foundParts = FXCollections.observableArrayList();
-        for(Part p : Inventory.getAllParts()){
-            if(p.getName().contains(partialPart)){
-                foundParts.add(p);
-            }
-        }
-        return foundParts;
-    }
 
-    private Part searchByPartID(int searchedIDNumber){
-        ObservableList<Part> partsToSearch = Inventory.getAllParts();
-        for(int i = 0; i < partsToSearch.size(); i++){
-            Part p = partsToSearch.get(i);
-            if(p.getId() == searchedIDNumber){
-                return p;
-            }
-        }
-        return null;
-    }
+
 
     //Button function to bring up Add Part Stage
     public void onAddPartClicked(MouseEvent event){
         try{
-
             Parent root = FXMLLoader.load(getClass().getResource("/View/addPartForm.fxml"));
-
-            Stage stage = new Stage();
-            stage.setTitle("Add Part");
-            stage.setScene(new Scene(root, 519, 475));
-            stage.show();
+            Stage addPartStage = new Stage();
+            addPartStage.setTitle("Add Part");
+            addPartStage.setScene(new Scene(root, 519, 475));
+            addPartStage.show();
 
         }
         catch(Exception e){
@@ -112,13 +96,26 @@ public class mainScreen implements Initializable {
             stage.setTitle("Modify Part");
             stage.setScene(new Scene(mainScreen, 600, 495));
             stage.show();
-            
-
-
+            ModifyPartForm controller = loader.getController();
+            Part selectPart = partsTable.getSelectionModel().getSelectedItem();
+            controller.retrieveSelectPart(selectPart);
         }
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void onDeletePartClicked(ActionEvent actionEvent) {
+        Part selectedDelete = partsTable.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Part");
+        alert.setContentText("You are about to delete " + selectedDelete.getName() + ", do you want to proceed?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Inventory.deletePart(selectedDelete);
+            }
+        });
+
     }
 
 
@@ -164,6 +161,8 @@ public class mainScreen implements Initializable {
 
         if(!entered){
             Inventory.addPart(new OutSourcedPart( 1, "Ryzen 7 5800x", 495.00, 10, 1, 20, "AMD") );
+            Inventory.addPart(new OutSourcedPart( 15, "Ryzen 9 5900x", 495.00, 10, 1, 20, "AMD") );
+            Inventory.addPart(new OutSourcedPart(12, "Test Outsourced", 6.00, 15, 1, 10, "Acme"));
             Inventory.addPart(new InHousePart(2, "Basic Motherboard", 89.00, 16, 1, 50, 1123));
             Inventory.addPart(new InHousePart( 3, "ATX Case", 67.00, 15, 1, 10, 1179));
 

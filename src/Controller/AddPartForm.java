@@ -24,7 +24,7 @@ public class AddPartForm implements Initializable{
     @FXML private TextField partInvCountField;
     @FXML private TextField partPriceField;
     @FXML private TextField partMaxInvField;
-    @FXML private TextField partMinCostField;
+    @FXML private TextField partMinInvField;
     @FXML private TextField partSourceField;
 
     //Radiobuttons and label to change
@@ -57,6 +57,9 @@ public class AddPartForm implements Initializable{
 
     boolean isMatch = false;
 
+    /**
+     * @return a random number to be used for an ID number
+     */
     public int assignPartNumber(){
         int randPartID;
         randPartID = 1 + rand.nextInt(999999);
@@ -70,15 +73,21 @@ public class AddPartForm implements Initializable{
         return randPartID;
     }
 
-
-    public void saveNewPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
+    /**
+     * @param actionEvent saves a new part to the part table
+     * @throws NumberFormatException
+     * @throws ValidationException
+     * @throws NullPointerException
+     */
+    @FXML
+    private void saveNewPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
 
         int newID = Integer.parseInt(partIDField.getText());
         String newName = partNameField.getText();
         String newInv = partInvCountField.getText();
         String newPrice = partPriceField.getText();
         String newMax = partMaxInvField.getText();
-        String newMin = partMinCostField.getText();
+        String newMin = partMinInvField.getText();
         String newSource = partSourceField.getText();
 
         if(source.getSelectedToggle().equals(inhouseRadioButton)) {
@@ -238,7 +247,8 @@ public class AddPartForm implements Initializable{
         }
     }
 
-    public void cancelAddPart(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void cancelAddPart(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Cancel Add Part");
         alert.setContentText("Are you sure you want to cancel?");
@@ -250,13 +260,13 @@ public class AddPartForm implements Initializable{
         });
     }
 
-    public boolean isValid(Part part) throws ValidationException {
+    public boolean isValid(Part part) throws ValidationException{
 
         String name = partNameField.getText();
         int inv = Integer.parseInt(partInvCountField.getText());
         Double price = Double.parseDouble(partPriceField.getText());
         int max = Integer.parseInt(partMaxInvField.getText());
-        int min = Integer.parseInt(partMinCostField.getText());
+        int min = Integer.parseInt(partMinInvField.getText());
 
         if(name.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -306,6 +316,7 @@ public class AddPartForm implements Initializable{
 
         idNumber = assignPartNumber();
         partIDField.setText(Integer.toString(idNumber));
+        partIDField.setEditable(false);
 
 
     }

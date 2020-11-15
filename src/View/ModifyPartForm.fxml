@@ -30,7 +30,7 @@
       <TextField id="partMaxInvField" fx:id="partMaxInvField" layoutX="152.0" layoutY="275.0" />
       <TextField id="partSourceField" fx:id="partSourceField" layoutX="152.0" layoutY="314.0" />
       <TextField id="partMinInvField" fx:id="partMinInvField" layoutX="352.0" layoutY="275.0" />
-      <Button layoutX="312.0" layoutY="404.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="374.0" layoutY="404.0" mnemonicParsing="false" text="Cancel" />
+      <Button id="saveModifyButton" fx:id="saveModifyButton" layoutX="312.0" layoutY="404.0" mnemonicParsing="false" onAction="#saveModifiedPart" text="Save" />
+      <Button fx:id="cancelButton" layoutX="374.0" layoutY="404.0" mnemonicParsing="false" onAction="#cancelModifyPart" text="Cancel" />
    </children>
 </AnchorPane>
