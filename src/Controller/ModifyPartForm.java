@@ -3,13 +3,13 @@ package Controller;
 import Model.InHousePart;
 import Model.OutSourcedPart;
 import Model.Part;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,6 +35,9 @@ public class ModifyPartForm implements Initializable {
 
     @FXML
     private TextField partSourceField;
+
+    @FXML
+    private Button cancelButton;
 
     //Radiobuttons and label to change
     @FXML private RadioButton inhouseRadioButton;
@@ -82,6 +85,18 @@ public class ModifyPartForm implements Initializable {
         }
     }
 
+    public void cancelModifyPart(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cancel Modify Part");
+        alert.setContentText("Are you sure you want to cancel?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Stage stage = (Stage) cancelButton.getScene().getWindow();
+                stage.close();
+            }
+        });
+    }
+
 
 
     @Override
@@ -90,6 +105,7 @@ public class ModifyPartForm implements Initializable {
         source = new ToggleGroup();
         this.inhouseRadioButton.setToggleGroup(source);
         this.outsourcedRadioButton.setToggleGroup(source);
+        partIDField.setEditable(false);
 
     }
 }
