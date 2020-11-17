@@ -71,8 +71,6 @@ public class mainScreen implements Initializable {
     }
 
 
-
-
     //Button function to bring up Add Part Stage
     public void onAddPartClicked(MouseEvent event){
         try{
