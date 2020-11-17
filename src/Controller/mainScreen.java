@@ -164,6 +164,8 @@ public class mainScreen implements Initializable {
             Inventory.addPart(new InHousePart(2, "Basic Motherboard", 89.00, 16, 1, 50, 1123));
             Inventory.addPart(new InHousePart( 3, "ATX Case", 67.00, 15, 1, 10, 1179));
 
+            Inventory.addProduct(new Product(13, "Basic Package", 456.00, 3, 1, 14));
+
 
 
         }
