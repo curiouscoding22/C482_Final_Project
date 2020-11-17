@@ -11,16 +11,16 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField layoutX="609.0" layoutY="33.0" prefHeight="26.0" prefWidth="174.0" promptText="Search by Part ID or Name" />
-      <TableView layoutX="381.0" layoutY="67.0" prefHeight="168.0" prefWidth="402.0">
+      <TextField fx:id="productPartSearchField" layoutX="609.0" layoutY="33.0" prefHeight="26.0" prefWidth="174.0" promptText="Search by Part ID or Name" />
+      <TableView id="productPartTable" fx:id="productPartTable" layoutX="381.0" layoutY="67.0" prefHeight="168.0" prefWidth="402.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Part ID" />
-          <TableColumn prefWidth="75.0" text="Part Name" />
-            <TableColumn prefWidth="109.20001220703125" text="Inventory Level" />
-            <TableColumn prefWidth="141.60001220703123" text="Price/Cost Per Unit" />
+          <TableColumn id="productPartIDColumn" fx:id="productPartIDColumn" prefWidth="75.0" text="Part ID" />
+          <TableColumn id="productPartNameColumn" fx:id="productPartNameColumn" prefWidth="75.0" text="Part Name" />
+            <TableColumn id="productPartInvColumn" fx:id="productPartInvColumn" prefWidth="109.20001220703125" text="Inventory Level" />
+            <TableColumn id="productPartPriceColumn" fx:id="productPartPriceColumn" prefWidth="141.60001220703123" text="Price/Cost Per Unit" />
         </columns>
       </TableView>
-      <Button layoutX="698.0" layoutY="242.0" mnemonicParsing="false" text="Add" />
+      <Button fx:id="addPartButton" layoutX="698.0" layoutY="242.0" mnemonicParsing="false" onAction="#addAssociatedPart" text="Add" />
       <TableView layoutX="381.0" layoutY="281.0" prefHeight="168.0" prefWidth="402.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Part ID" />
@@ -29,20 +29,21 @@
             <TableColumn prefWidth="139.19998779296873" text="Price/Cost Per Unit" />
         </columns>
       </TableView>
-      <Button layoutX="626.0" layoutY="462.0" mnemonicParsing="false" text="Remove Associated Part" />
-      <Button layoutX="626.0" layoutY="500.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="708.0" layoutY="500.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="removePartButton" layoutX="626.0" layoutY="462.0" mnemonicParsing="false" onAction="#removeAssociatedPart" text="Remove Associated Part" />
+      <Button fx:id="saveProductButton" layoutX="626.0" layoutY="500.0" mnemonicParsing="false" onAction="#saveNewProduct" text="Save" />
+      <Button fx:id="addProductCancel" layoutX="708.0" layoutY="500.0" mnemonicParsing="false" onAction="#cancelAddNewProduct" text="Cancel" />
       <Label layoutX="53.0" layoutY="125.0" text="ID" />
       <Label layoutX="51.0" layoutY="179.0" text="Name" />
       <Label layoutX="51.0" layoutY="233.0" text="Inv" />
       <Label layoutX="52.0" layoutY="287.0" text="Price" />
-      <TextField layoutX="105.0" layoutY="121.0" prefHeight="26.0" prefWidth="130.0" promptText="Auto Gen - Disabled" />
-      <TextField layoutX="105.0" layoutY="175.0" prefHeight="26.0" prefWidth="130.0" />
-      <TextField layoutX="105.0" layoutY="229.0" prefHeight="26.0" prefWidth="91.0" />
-      <TextField layoutX="105.0" layoutY="283.0" prefHeight="26.0" prefWidth="91.0" />
+      <TextField fx:id="productIDField" layoutX="105.0" layoutY="121.0" prefHeight="26.0" prefWidth="130.0" promptText="Auto Gen - Disabled" />
+      <TextField fx:id="productNameField" layoutX="105.0" layoutY="175.0" prefHeight="26.0" prefWidth="130.0" />
+      <TextField fx:id="productInvField" layoutX="105.0" layoutY="229.0" prefHeight="26.0" prefWidth="91.0" />
+      <TextField fx:id="productPriceField" layoutX="105.0" layoutY="283.0" prefHeight="26.0" prefWidth="91.0" />
       <Label layoutX="53.0" layoutY="335.0" text="Max" />
-      <TextField layoutX="105.0" layoutY="331.0" prefHeight="26.0" prefWidth="91.0" />
+      <TextField fx:id="productMinField" layoutX="105.0" layoutY="331.0" prefHeight="26.0" prefWidth="91.0" />
       <Label layoutX="203.0" layoutY="335.0" text="Min" />
-      <TextField layoutX="232.0" layoutY="332.0" prefHeight="26.0" prefWidth="91.0" />
+      <TextField fx:id="productMaxField" layoutX="232.0" layoutY="332.0" prefHeight="26.0" prefWidth="91.0" />
+      <Button fx:id="prodiuctSearchPartButton" layoutX="556.0" layoutY="33.0" mnemonicParsing="false" onAction="#productPartSearch" text="Search" />
    </children>
 </AnchorPane>
