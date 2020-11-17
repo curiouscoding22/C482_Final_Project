@@ -42,8 +42,6 @@ public class ModifyPartForm implements Initializable {
     @FXML
     private Button cancelButton;
 
-    @FXML
-    private Button saveModifyButton;
 
     //Radiobuttons and label to change
     @FXML private RadioButton inhouseRadioButton;
@@ -53,6 +51,9 @@ public class ModifyPartForm implements Initializable {
 
     private Part part;
 
+    /**
+     * This is the change source method. This method changes the source text field to "Machine ID" or "Company Name" based on the radio button selected.
+     */
     public void changeSourceLabel(){
         if(source.getSelectedToggle().equals(inhouseRadioButton)){
             sourceLabel.setText("Machine ID");
@@ -61,6 +62,9 @@ public class ModifyPartForm implements Initializable {
         }
     }
 
+    /**This is the part retrieve method. This method is used to collect the selected part information from the main screen and populate it on the modify screen.
+     * @param selectedPart this is the part selected from the main screen part table.
+     */
     public void retrieveSelectPart(Part selectedPart) {
         this.part = selectedPart;
 
@@ -91,6 +95,12 @@ public class ModifyPartForm implements Initializable {
         }
     }
 
+    /**This is the save method for modified parts. This method takes the information from the text fields and saves a new version of the part in the main screen part table.
+     * @param actionEvent this is the event that occurs when the user clicks the save button.
+     * @throws NumberFormatException
+     * @throws ValidationException
+     * @throws NullPointerException
+     */
     public void saveModifiedPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
 
         int newID = Integer.parseInt(partIDField.getText());
@@ -258,6 +268,11 @@ public class ModifyPartForm implements Initializable {
         }
     }
 
+    /**This is the validate part method. This method performs logical checks to ensure the entered information is used to create a valid part.
+     * @param part the part to validate
+     * @return returns a boolean value, true if valid, else false.
+     * @throws ValidationException
+     */
     public boolean isValid(Part part) throws ValidationException{
 
         String name = partNameField.getText();
@@ -305,8 +320,10 @@ public class ModifyPartForm implements Initializable {
 
     }
 
-
-
+    /**This is the cancel method. This method is an action performed when the user clicks the cancel button. It closes the modify screen and directs the user to the main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelModifyPart(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Modify Part");
