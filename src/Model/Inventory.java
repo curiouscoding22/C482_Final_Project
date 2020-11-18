@@ -63,7 +63,7 @@ public class Inventory {
     public static ObservableList<Part> lookupPart(String partialPart){
         ObservableList<Part> foundParts = FXCollections.observableArrayList();
         for(Part p : allParts){
-            if(p.getName().contains(partialPart)){
+            if(p.getName().toLowerCase().contains(partialPart.toLowerCase())){
                 foundParts.add(p);
             }
         }
