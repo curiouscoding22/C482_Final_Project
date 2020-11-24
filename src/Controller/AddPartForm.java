@@ -164,7 +164,7 @@ public class AddPartForm implements Initializable{
                 alert.setContentText("Please enter the Machine ID number");
                 alert.showAndWait();
             }
-            if(isValid(newInhousePart)){
+            if(isValidPart(newInhousePart)){
                 Inventory.addPart(newInhousePart);
                 Stage stage = (Stage) cancelButton.getScene().getWindow();
                 stage.close();
@@ -239,7 +239,7 @@ public class AddPartForm implements Initializable{
                 alert.setContentText("Please enter the Company Name");
                 alert.showAndWait();
             }
-            if(isValid(newOutsourcePart)){
+            if(isValidPart(newOutsourcePart)){
                 Inventory.addPart(newOutsourcePart);
                 Stage stage = (Stage) cancelButton.getScene().getWindow();
                 stage.close();
@@ -248,8 +248,8 @@ public class AddPartForm implements Initializable{
     }
 
     @FXML
-    private void cancelAddPart(ActionEvent actionEvent) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    private void cancelAddPart(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Add Part");
         alert.setContentText("Are you sure you want to cancel?");
         alert.showAndWait().ifPresent(response -> {
@@ -260,7 +260,7 @@ public class AddPartForm implements Initializable{
         });
     }
 
-    public boolean isValid(Part part) throws ValidationException{
+    public boolean isValidPart(Part part) throws ValidationException{
 
         String name = partNameField.getText();
         int inv = Integer.parseInt(partInvCountField.getText());

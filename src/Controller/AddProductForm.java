@@ -59,7 +59,6 @@ public class AddProductForm implements Initializable {
         return randProdID;
     }
 
-
     public void addAssociatedPart(ActionEvent actionEvent) {
         Part selectPart = productPartTable.getSelectionModel().getSelectedItem();
         if(selectPart != null){

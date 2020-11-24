@@ -87,19 +87,25 @@ public class mainScreen implements Initializable {
     }
 
     public void onModifyPartClicked(MouseEvent event){
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ModifyPartForm.fxml"));
-            Parent mainScreen = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Modify Part");
-            stage.setScene(new Scene(mainScreen, 600, 495));
-            stage.show();
-            ModifyPartForm controller = loader.getController();
-            Part selectPart = partsTable.getSelectionModel().getSelectedItem();
-            controller.retrieveSelectPart(selectPart);
-        }
-        catch(Exception e){
-            e.printStackTrace();
+        if(partsTable.getSelectionModel().getSelectedItem() != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ModifyPartForm.fxml"));
+                Parent mainScreen = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Modify Part");
+                stage.setScene(new Scene(mainScreen, 600, 495));
+                stage.show();
+                ModifyPartForm controller = loader.getController();
+                Part selectPart = partsTable.getSelectionModel().getSelectedItem();
+                controller.retrieveSelectPart(selectPart);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Part Selected");
+            alert.setContentText("Select a part from the list to modify");
+            alert.showAndWait();
         }
     }
 
@@ -125,7 +131,6 @@ public class mainScreen implements Initializable {
         try{
 
             Parent root = FXMLLoader.load(getClass().getResource("/View/AddProductForm.fxml"));
-
             Stage stage = new Stage();
             stage.setTitle("Add Product");
             stage.setScene(new Scene(root, 840, 550));
@@ -138,18 +143,26 @@ public class mainScreen implements Initializable {
     }
 
     public void onModifyProductClicked(MouseEvent event){
-        try{
+        if(productsTable.getSelectionModel().getSelectedItem() != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ModifyProductForm.fxml"));
+                Parent mainScreen = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Modify Product");
+                stage.setScene(new Scene(mainScreen, 840, 550));
+                stage.show();
+                ModifyProductForm controller = loader.getController();
+                Product selectProduct = productsTable.getSelectionModel().getSelectedItem();
+                controller.retrieveSelectProduct(selectProduct);
 
-            Parent root = FXMLLoader.load(getClass().getResource("/View/ModifyProductForm.fxml"));
-
-            Stage stage = new Stage();
-            stage.setTitle("Modify Product");
-            stage.setScene(new Scene(root, 840, 550));
-            stage.show();
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No Product Selected");
+            alert.setContentText("Select a product from the list to modify");
+            alert.showAndWait();
         }
     }
 
