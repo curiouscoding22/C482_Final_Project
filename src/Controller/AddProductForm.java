@@ -1,8 +1,6 @@
 package Controller;
 
-import Model.Inventory;
-import Model.Part;
-import Model.Product;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

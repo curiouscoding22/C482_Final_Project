@@ -1,7 +1,4 @@
 package Model;
-
-import Model.Part;
-import Model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

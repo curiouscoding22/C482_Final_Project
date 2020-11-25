@@ -41,7 +41,7 @@
                   <TableColumn fx:id="productPriceColumn" prefWidth="143.0" text="Price/Cost Per Unit" />
               </columns>
             </TableView>
-            <Button id="deleteProductButton" fx:id="productDeleteButton" layoutX="392.0" layoutY="307.0" mnemonicParsing="false" text="Delete" />
+            <Button id="deleteProductButton" fx:id="productDeleteButton" layoutX="392.0" layoutY="307.0" mnemonicParsing="false" onAction="#deleteProduct" text="Delete" />
             <Button id="modifyPartButton" fx:id="modifyProductButton" layoutX="328.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#onModifyProductClicked" text="Modify" />
             <Button id="addProductButton" fx:id="addProductButton" layoutX="281.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#onAddProductClicked" text="Add" />
             <TextField id="searchProducts" fx:id="productSearchField" layoutX="189.0" layoutY="28.0" prefHeight="25.0" prefWidth="203.0" promptText="Search by Product ID or Name" />
@@ -53,6 +53,6 @@
             <Button fx:id="productSearch" layoutX="137.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchProductTable" text="Search" />
          </children>
       </AnchorPane>
-      <Button id="exitAppButton" fx:id="exiitApplicationButton" layoutX="891.0" layoutY="408.0" mnemonicParsing="false" text="Exit" />
+      <Button id="exitAppButton" fx:id="exitApplicationButton" layoutX="891.0" layoutY="408.0" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
    </children>
 </Pane>
