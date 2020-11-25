@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +26,8 @@ public class mainScreen implements Initializable {
     static boolean entered;
 
 
-    @FXML
-    private TextField partSearchField;
+    @FXML private TextField partSearchField;
+    @FXML private TextField productSearchField;
 
     @FXML private TableView<Part> partsTable;
     @FXML private TableColumn<Part, Integer> partIDColumn;
@@ -40,11 +41,6 @@ public class mainScreen implements Initializable {
     @FXML private TableColumn<Part, Integer> productInventoryColumn;
     @FXML private TableColumn<Part, Double> productPriceColumn;
 
-
-
-
-
-    //////////////////Main Screen, Part Functions////////////////////////////
 
     public void searchHandle(ActionEvent actionEvent) {
         String searchText = partSearchField.getText();
@@ -70,8 +66,6 @@ public class mainScreen implements Initializable {
         partSearchField.setText("");
     }
 
-
-    //Button function to bring up Add Part Stage
     public void onAddPartClicked(MouseEvent event){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/View/addPartForm.fxml"));
@@ -123,9 +117,29 @@ public class mainScreen implements Initializable {
     }
 
 
-
-
-    //////////////////Main Screen, Product Functions////////////////////////////
+    public void searchProductTable(ActionEvent actionEvent) {
+        String searchText = productSearchField.getText();
+        if(searchText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed Search");
+            alert.setContentText("Enter the product name or ID number to search");
+            alert.showAndWait();
+        }
+        ObservableList<Product> returnedProducts = Inventory.lookupProductName(searchText);
+        if (returnedProducts.size() == 0) {
+            try {
+                int productIDNumber = Integer.parseInt(searchText);
+                Product p = Inventory.productIDLookup(productIDNumber);
+                if (p != null) {
+                    returnedProducts.add(p);
+                }
+            } catch (NumberFormatException e) {
+                //ignore exception
+            }
+        }
+        productsTable.setItems(returnedProducts);
+        partSearchField.setText("");
+    }
 
     public void onAddProductClicked(MouseEvent event){
         try{
@@ -166,6 +180,37 @@ public class mainScreen implements Initializable {
         }
     }
 
+    public void deleteProduct(ActionEvent actionEvent) {
+        Product productToDelete = productsTable.getSelectionModel().getSelectedItem();
+        if(!productToDelete.getAllAssociatedParts().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Unable to delete");
+            alert.setContentText("Can not delete product with associated parts, please remove and try again.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Product");
+            alert.setContentText("You are about to delete " + productToDelete.getProductName() + ", do you want to proceed?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    Inventory.deleteProduct(productToDelete);
+                }
+            });
+        }
+    }
+
+
+    public void exitProgram(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Exit");
+        alert.setContentText("Do you want to close the program?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                System.exit(0);
+            }
+        });
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -176,13 +221,8 @@ public class mainScreen implements Initializable {
             Inventory.addPart(new OutSourcedPart(12, "Test Outsourced", 6.00, 15, 1, 10, "Acme"));
             Inventory.addPart(new InHousePart(2, "Basic Motherboard", 89.00, 16, 1, 50, 1123));
             Inventory.addPart(new InHousePart( 3, "ATX Case", 67.00, 15, 1, 10, 1179));
-
             Inventory.addProduct(new Product(13, "Basic Package", 456.00, 3, 1, 14));
-
-
-
         }
-
         //Binding part table columns
         partIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -197,7 +237,4 @@ public class mainScreen implements Initializable {
         productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
         productsTable.setItems(Inventory.getAllProducts());
     }
-
-
-
 }
