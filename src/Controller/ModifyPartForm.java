@@ -16,29 +16,15 @@ import java.util.ResourceBundle;
 
 public class ModifyPartForm implements Initializable {
 
-    @FXML
-    private TextField partIDField;
+    @FXML private TextField partIDField;
+    @FXML private TextField partNameField;
+    @FXML private TextField partInvField;
+    @FXML private TextField partPriceField;
+    @FXML private TextField partMaxInvField;
+    @FXML private TextField partMinInvField;
+    @FXML private TextField partSourceField;
 
-    @FXML
-    private TextField partNameField;
-
-    @FXML
-    private TextField partInvField;
-
-    @FXML
-    private TextField partPriceField;
-
-    @FXML
-    private TextField partMaxInvField;
-
-    @FXML
-    private TextField partMinInvField;
-
-    @FXML
-    private TextField partSourceField;
-
-    @FXML
-    private Button cancelButton;
+    @FXML private Button cancelButton;
 
 
     //Radiobuttons and label to change
