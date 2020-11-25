@@ -50,6 +50,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Button fx:id="productSearch" layoutX="137.0" layoutY="28.0" mnemonicParsing="false" onAction="#searchProductTable" text="Search" />
          </children>
       </AnchorPane>
       <Button id="exitAppButton" fx:id="exiitApplicationButton" layoutX="891.0" layoutY="408.0" mnemonicParsing="false" text="Exit" />

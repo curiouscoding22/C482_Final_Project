@@ -48,7 +48,8 @@ public class Inventory {
      * @return the matched part (if it exists).
      */
     public static Product productIDLookup(int productID){
-        for(Product prod : allProducts){
+        ObservableList<Product> productsToSearch = Inventory.getAllProducts();
+        for(Product prod : productsToSearch){
             if(prod.getProductID() == productID){
                 return prod;
             }
@@ -74,13 +75,14 @@ public class Inventory {
      * @param searchedProduct the full or partial product name used in the search.
      * @return the matching product(s).
      */
-    public static Product lookupProductName(String searchedProduct){
+    public static ObservableList<Product> lookupProductName(String searchedProduct){
+        ObservableList<Product> foundProducts = FXCollections.observableArrayList();
         for(Product prod : allProducts){
             if(prod.getProductName().toLowerCase().contains(searchedProduct.toLowerCase())){
-                return prod;
+                foundProducts.add(prod);
             }
         }
-        return null;
+        return foundProducts;
     }
 
     /**This is the update part method. This method takes a modified part and replaces the existing inventory part with it by matching the ID number.
