@@ -186,10 +186,10 @@ public class ModifyProductForm implements Initializable {
     public void retrieveSelectProduct(Product selectedProduct) {
         this.product = selectedProduct;
 
-        productIDField.setText(Integer.toString(product.getID()));
-        productNameField.setText(product.getName());
-        productInvField.setText(Integer.toString(product.getStock()));
-        productPriceField.setText(Double.toString(product.getPrice()));
+        productIDField.setText(Integer.toString(product.getProductID()));
+        productNameField.setText(product.getProductName());
+        productInvField.setText(Integer.toString(product.getProductStock()));
+        productPriceField.setText(Double.toString(product.getProductPrice()));
         productMaxField.setText(Integer.toString(product.getMax()));
         productMinField.setText(Integer.toString(product.getMin()));
         partsToAssociate = product.getAllAssociatedParts();

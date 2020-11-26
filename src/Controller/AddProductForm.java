@@ -52,7 +52,7 @@ public class AddProductForm implements Initializable {
         randProdID = 1 + rand.nextInt(999999);
 
         for(Product p : Inventory.getAllProducts()){
-            if(p.getID() == randProdID){
+            if(p.getProductID() == randProdID){
                 isMatch = true;
                 assignProductID();
             }

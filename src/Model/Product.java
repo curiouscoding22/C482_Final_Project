@@ -40,7 +40,7 @@ public class Product {
      * This method returns the product's ID number.
      * @return the ID number.
      */
-    public int getID() {
+    public int getProductID() {
         return productID;
     }
 
@@ -56,7 +56,7 @@ public class Product {
      * This method returns the product's name.
      * @return the name
      */
-    public String getName() {
+    public String getProductName() {
         return productName;
     }
 
@@ -72,7 +72,7 @@ public class Product {
      *This method returns the product price.
      * @return the price
      */
-    public double getPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
@@ -88,7 +88,7 @@ public class Product {
      *This method returns the inventory count
      * @return the stock
      */
-    public int getStock() {
+    public int getProductStock() {
         return productStock;
     }
 
