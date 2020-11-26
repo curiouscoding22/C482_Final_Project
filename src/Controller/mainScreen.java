@@ -28,6 +28,7 @@ public class mainScreen implements Initializable {
 
     @FXML private TextField partSearchField;
     @FXML private TextField productSearchField;
+    @FXML private Label searchErrorLabel;
 
     @FXML private TableView<Part> partsTable;
     @FXML private TableColumn<Part, Integer> partIDColumn;
@@ -41,7 +42,10 @@ public class mainScreen implements Initializable {
     @FXML private TableColumn<Part, Integer> productInventoryColumn;
     @FXML private TableColumn<Part, Double> productPriceColumn;
 
-
+    /**
+     *This is the part search method. This method searches the part table for a match to the user entry in the textf field by either part name or ID number.
+     * @param actionEvent Search button clicked.
+     */
     public void searchHandle(ActionEvent actionEvent) {
         String searchText = partSearchField.getText();
         if(searchText.isEmpty()) {
@@ -64,8 +68,19 @@ public class mainScreen implements Initializable {
         }
         partsTable.setItems(returnedParts);
         partSearchField.setText("");
+        if(returnedParts.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed Search");
+            alert.setContentText("No matching part found.");
+            alert.showAndWait();
+            partsTable.setItems(Inventory.getAllParts());
+        }
     }
 
+    /**
+     *This is the add part screen method. This method creates a new stage for the add part function using the fxml file and controller.
+     * @param event Add button clicked.
+     */
     public void onAddPartClicked(MouseEvent event){
         try{
             Parent root = FXMLLoader.load(getClass().getResource("/View/addPartForm.fxml"));
@@ -80,6 +95,10 @@ public class mainScreen implements Initializable {
         }
     }
 
+    /**
+     *This is the modify part screen method. This method creates the new stage for the modify part scene and functions using the corresponding fxml file and controller.
+     * @param event Modify button clicked.
+     */
     public void onModifyPartClicked(MouseEvent event){
         if(partsTable.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -103,6 +122,10 @@ public class mainScreen implements Initializable {
         }
     }
 
+    /**
+     *This is the delete part method. This method deletes a selected part in the tableview by removing it from the allparts list.
+     * @param actionEvent Delete button clicked.
+     */
     public void onDeletePartClicked(ActionEvent actionEvent) {
         Part selectedDelete = partsTable.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -116,7 +139,10 @@ public class mainScreen implements Initializable {
 
     }
 
-
+    /**
+     *This is the product search method. This method searches for a product match to the user entered information in the search field and compares it to the existing product names or ID's.
+     * @param actionEvent Search button clicked.
+     */
     public void searchProductTable(ActionEvent actionEvent) {
         String searchText = productSearchField.getText();
         if(searchText.isEmpty()) {
@@ -125,22 +151,57 @@ public class mainScreen implements Initializable {
             alert.setContentText("Enter the product name or ID number to search");
             alert.showAndWait();
         }
-        ObservableList<Product> returnedProducts = Inventory.lookupProductName(searchText);
-        if (returnedProducts.size() == 0) {
+        ObservableList<Product> returnedProds = Inventory.lookupProductName(searchText);
+        if (returnedProds.size() == 0) {
             try {
-                int productIDNumber = Integer.parseInt(searchText);
-                Product p = Inventory.productIDLookup(productIDNumber);
+                int productID = Integer.parseInt(searchText);
+                Product p = Inventory.productIDLookup(productID);
                 if (p != null) {
-                    returnedProducts.add(p);
+                    returnedProds.add(p);
                 }
             } catch (NumberFormatException e) {
                 //ignore exception
             }
         }
-        productsTable.setItems(returnedProducts);
-        partSearchField.setText("");
+        productsTable.setItems(returnedProds);
+        productSearchField.setText("");
+        if(returnedProds.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Failed Search");
+            alert.setContentText("No matching part found.");
+            alert.showAndWait();
+            productsTable.setItems(Inventory.getAllProducts());
+        }
+
+//        ObservableList<Product> returnedProducts = Inventory.lookupProductName(searchText);
+//        productsTable.setItems(returnedProducts);
+//        partSearchField.setText("");
+//
+
+
+//        ObservableList<Product> returnedProducts = Inventory.lookupProductName(searchText);
+//        if (returnedProducts.size() == 0) {
+//            try {
+//                int productIDNumber = Integer.parseInt(searchText);
+//                Product p = Inventory.productIDLookup(productIDNumber);
+//                if (p != null) {
+//                    returnedProducts.add(p);
+//                    productsTable.setItems(returnedProducts);
+//                    partSearchField.setText("");
+//                }
+//            } catch (NullPointerException ex){
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Failed Search");
+//                alert.setContentText("No matching product found.");
+//                alert.showAndWait();
+//            }
+//        }
     }
 
+    /**
+     *This is the add product screen method. This method creates a new stage which is formatted with the add product fxml file and uses the corresponding controller file for functionality.
+     * @param event Add button clicked in product pane.
+     */
     public void onAddProductClicked(MouseEvent event){
         try{
 
@@ -156,6 +217,10 @@ public class mainScreen implements Initializable {
         }
     }
 
+    /**
+     *This is the modify product screen method. This method creates a new stage which is formatted with the modify product fxml file and uses the corresponding controller file for functionality.
+     * @param event Modify button clicked in product pane.
+     */
     public void onModifyProductClicked(MouseEvent event){
         if(productsTable.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -180,6 +245,10 @@ public class mainScreen implements Initializable {
         }
     }
 
+    /**
+     *This is the delete product method. This method checks that the selected product doesn't have any associated parts (if it does, the user is prompted to remove them) and removes the product from the allproducts list and products tableview.
+     * @param actionEvent Delete clicked in product pane.
+     */
     public void deleteProduct(ActionEvent actionEvent) {
         Product productToDelete = productsTable.getSelectionModel().getSelectedItem();
         if(!productToDelete.getAllAssociatedParts().isEmpty()){
@@ -199,7 +268,10 @@ public class mainScreen implements Initializable {
         }
     }
 
-
+    /**
+     *This is the exit method. This method confirms the user wants to exit and terminates the application.
+     * @param actionEvent Exit button clicked.
+     */
     public void exitProgram(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Exit");
@@ -222,6 +294,8 @@ public class mainScreen implements Initializable {
             Inventory.addPart(new InHousePart(2, "Basic Motherboard", 89.00, 16, 1, 50, 1123));
             Inventory.addPart(new InHousePart( 3, "ATX Case", 67.00, 15, 1, 10, 1179));
             Inventory.addProduct(new Product(13, "Basic Package", 456.00, 3, 1, 14));
+            Inventory.addProduct(new Product(156, "Test 1", 3.45, 6, 1, 17));
+            Inventory.addProduct(new Product(18776, "Test 2", 6.78, 3, 1, 15));
         }
         //Binding part table columns
         partIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
