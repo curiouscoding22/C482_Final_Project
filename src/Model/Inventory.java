@@ -1,6 +1,7 @@
 package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  * This is the Inventory class. This class contains methods for adding and editing parts and products to the inventory lists.
@@ -46,8 +47,8 @@ public class Inventory {
      */
     public static Product productIDLookup(int productID){
         ObservableList<Product> productsToSearch = Inventory.getAllProducts();
-        for(Product prod : productsToSearch){
-            if(prod.getProductID() == productID){
+        for(Product prod : productsToSearch) {
+            if (prod.getProductID() == productID) {
                 return prod;
             }
         }

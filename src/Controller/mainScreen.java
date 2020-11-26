@@ -111,6 +111,9 @@ public class mainScreen implements Initializable {
                 ModifyPartForm controller = loader.getController();
                 Part selectPart = partsTable.getSelectionModel().getSelectedItem();
                 controller.retrieveSelectPart(selectPart);
+                /**
+                 * When I began working on this method I was having a run time error where the part information I was attempting to load was not populating in the fields of the modify part screen. While the application was running, if I clicked the "Modify" button, the application would throw a NullPointerException to the terminal. I began reviewing this method as well as the retrieveSelectPart method that is called within it to see where the null pointer was being thrown. After longer than it should have taken, I watched the available video in the course resource links on using the debugger to step through the application to see what is happening at a given time. I set the breakpoint at line 113 and ran in debugger. When it hit the breakpoint, I was able to see the stock variable for the part was null and was causing the error to occur. The variable for the stock text field in the controller class did not match the fxid of the field in Scene Builder. Once this name was matched, the application was able to load the part data and the error was cleared.
+                 */
             } catch (Exception e) {
                 e.printStackTrace();
             }
