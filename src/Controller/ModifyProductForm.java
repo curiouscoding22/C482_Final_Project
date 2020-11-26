@@ -44,6 +44,11 @@ public class ModifyProductForm implements Initializable {
 
     private Product product;
 
+    /**
+     * This is the save method. This method takes the modified product information and overwrites the existing product when the save button is clicked by the mouse.
+     * @param actionEvent
+     * @throws ValidationException
+     */
     public void saveModifiedProduct(ActionEvent actionEvent) throws ValidationException {
         int newProductID = Integer.parseInt(productIDField.getText());
         String modProductName = productNameField.getText();
@@ -53,10 +58,10 @@ public class ModifyProductForm implements Initializable {
         int modProductMin = Integer.parseInt(productMinField.getText());
 
         Product modProduct = new Product();
-        modProduct.setProductID(newProductID);
-        modProduct.setProductName(modProductName);
+        modProduct.setID(newProductID);
+        modProduct.setName(modProductName);
         try {
-             modProduct.setProductStock(modProductInv);
+             modProduct.setStock(modProductInv);
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -70,7 +75,7 @@ public class ModifyProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            modProduct.setProductPrice(modProductPrice);
+            modProduct.setPrice(modProductPrice);
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -121,6 +126,12 @@ public class ModifyProductForm implements Initializable {
         }
     }
 
+    /**
+     * This method is a validation method. This is used to confirm that the information entered in the fields conforms to valid product information.
+     * @param product
+     * @return true
+     * @throws ValidationException
+     */
     public boolean isValidProduct(Product product) throws ValidationException{
 
         String checkedName = productNameField.getText();
@@ -168,19 +179,27 @@ public class ModifyProductForm implements Initializable {
 
     }
 
+    /**
+     * This is the product retrieve method. This method collects the values from the table on the main screen and assigns them to the text fields
+     * @param selectedProduct the selected product in the table.
+     */
     public void retrieveSelectProduct(Product selectedProduct) {
         this.product = selectedProduct;
 
-        productIDField.setText(Integer.toString(product.getProductID()));
-        productNameField.setText(product.getProductName());
-        productInvField.setText(Integer.toString(product.getProductStock()));
-        productPriceField.setText(Double.toString(product.getProductPrice()));
+        productIDField.setText(Integer.toString(product.getID()));
+        productNameField.setText(product.getName());
+        productInvField.setText(Integer.toString(product.getStock()));
+        productPriceField.setText(Double.toString(product.getPrice()));
         productMaxField.setText(Integer.toString(product.getMax()));
         productMinField.setText(Integer.toString(product.getMin()));
         partsToAssociate = product.getAllAssociatedParts();
         associatedPartTable.setItems(partsToAssociate);
     }
 
+    /**
+     *This method is the event associated with the cancel button. When clicked by the user, it promptd them to confirm their action and closes the stage without saving.
+     * @param actionEvent the user click on the cancel button.
+     */
     public void cancelModifyProduct(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Modify Product");
@@ -193,6 +212,10 @@ public class ModifyProductForm implements Initializable {
         });
     }
 
+    /**
+     *This method handles the user clicking the search button. The method searches the part list by name or ID to find a part to associate.
+     * @param actionEvent the user click on the search button.
+     */
     public void searchPartsModify(ActionEvent actionEvent) {
         String searchText = partSearchField.getText();
         if(searchText.isEmpty()){
@@ -214,6 +237,10 @@ public class ModifyProductForm implements Initializable {
         partSearchField.setText("");
     }
 
+    /**
+     *This method handles the user clicking the save button. The method validates the information and overwrites the product information in the inventory.
+     * @param actionEvent the user click on the save button.
+     */
     public void addAssociatedPart(ActionEvent actionEvent) {
         Part selectPart = productPartTable.getSelectionModel().getSelectedItem();
         if(selectPart != null){
@@ -228,6 +255,10 @@ public class ModifyProductForm implements Initializable {
         }
     }
 
+    /**
+     *This method handles the user clicking the remove button. The method disassociates the selected part from the product's associated part list.
+     * @param actionEvent the user click on the remove button.
+     */
     public void removeAssociatedPart(ActionEvent actionEvent) {
         Part p = associatedPartTable.getSelectionModel().getSelectedItem();
         if(p != null){
