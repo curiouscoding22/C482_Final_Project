@@ -10,9 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javax.xml.bind.ValidationException;
-
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -38,12 +35,11 @@ public class AddPartForm implements Initializable{
     //Random number generator for part numbers
     Random rand = new Random();
     int idNumber;
-
-
+    boolean isMatch = false;
 
 
     /**
-     * Method to change the source label for parts
+     * This method is used to change the source label for parts when the Inhouse or Outsourced radio buttons are selected.
      *
      */
     public void changeSourceLabel(){
@@ -54,10 +50,7 @@ public class AddPartForm implements Initializable{
         }
     }
 
-
-    boolean isMatch = false;
-
-    /**
+    /**This is the method for generating part numbers. The number is randomly generated from 1 to 999999 and is checked against existing part numbers to ensure there aren't duplicats.
      * @return a random number to be used for an ID number
      */
     public int assignPartNumber(){
@@ -73,7 +66,7 @@ public class AddPartForm implements Initializable{
         return randPartID;
     }
 
-    /**
+    /**This is the save part method. This method creates a new part with the user entered information and adds it to the inventory for display.
      * @param actionEvent saves a new part to the part table
      * @throws NumberFormatException
      * @throws ValidationException
@@ -247,6 +240,10 @@ public class AddPartForm implements Initializable{
         }
     }
 
+    /**
+     * This is the cancel method. When the user clicks the cancel button, this method confirms the action then closes the add part screen without saving information.
+     * @param actionEvent
+     */
     @FXML
     private void cancelAddPart(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -260,6 +257,12 @@ public class AddPartForm implements Initializable{
         });
     }
 
+    /**
+     * This is the validation method. This method checks the input in the text fields to ensure it is valid and throws an exception with a description to prompt the user to fix if not.
+     * @param part the part that is being checked.
+     * @return true
+     * @throws ValidationException
+     */
     public boolean isValidPart(Part part) throws ValidationException{
 
         String name = partNameField.getText();
