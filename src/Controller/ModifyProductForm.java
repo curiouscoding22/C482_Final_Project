@@ -11,11 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import javax.xml.bind.ValidationException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the Modify Product Form.
+ */
 public class ModifyProductForm implements Initializable {
 
     @FXML private TextField productIDField;
@@ -267,6 +269,11 @@ public class ModifyProductForm implements Initializable {
         }
     }
 
+    /**
+     * This method initalizes the tables on the screen and populates them with the part objects.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

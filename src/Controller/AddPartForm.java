@@ -14,6 +14,9 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the Add Part form.
+ */
 public class AddPartForm implements Initializable{
 
     @FXML private TextField partIDField;
@@ -310,6 +313,11 @@ public class AddPartForm implements Initializable{
 
     }
 
+    /**
+     * This method initializes the radio buttons and sets the non-editable part number.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

@@ -19,7 +19,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-
+/**
+ * This class is the controller for the main screen functions.
+ */
 public class mainScreen implements Initializable {
 
 
@@ -287,6 +289,11 @@ public class mainScreen implements Initializable {
     }
 
 
+    /**
+     * This method initializes the tables and provides default objects.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

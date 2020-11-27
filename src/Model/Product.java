@@ -3,6 +3,9 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * This class creates Product objects.
+ */
 public class Product {
 
     private int productID;

@@ -14,6 +14,9 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the Add Product form.
+ */
 public class AddProductForm implements Initializable {
 
     @FXML private TableView<Part> productPartTable;
@@ -271,6 +274,11 @@ public class AddProductForm implements Initializable {
 
     }
 
+    /**
+     * This method initializes the tables on the product screen.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -289,8 +297,5 @@ public class AddProductForm implements Initializable {
         productIDNumber = assignProductID();
         productIDField.setText(Integer.toString(productIDNumber));
         productIDField.setEditable(false);
-
     }
-
-
 }

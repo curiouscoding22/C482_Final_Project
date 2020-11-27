@@ -1,17 +1,27 @@
 package Model;
 
-import Model.Part;
-
 /**
  * This is the Inhouse Part class. This class extends the abstract part class to create Inhouse Part objects.
  */
 public class InHousePart extends Part {
 
-    public InHousePart(){}
-
     private int machineID;
 
+    /**
+     * This is the default empty constructor.
+     */
+    public InHousePart(){}
 
+    /**
+     * This is the full constructor for making Inhouse parts
+     * @param id
+     * @param name
+     * @param price
+     * @param stock
+     * @param min
+     * @param max
+     * @param machineID
+     */
     public InHousePart(int id, String name, double price, int stock, int min, int max, int machineID) {
         super(id, name, price, stock, min, max);
         this.machineID = machineID;
