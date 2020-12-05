@@ -52,18 +52,16 @@ public class ModifyProductForm implements Initializable {
      * @throws ValidationException
      */
     public void saveModifiedProduct(ActionEvent actionEvent) throws ValidationException {
-        int newProductID = Integer.parseInt(productIDField.getText());
-        String modProductName = productNameField.getText();
-        int modProductInv = Integer.parseInt(productInvField.getText());
-        Double modProductPrice = Double.parseDouble(productPriceField.getText());
-        int modProductMax = Integer.parseInt(productMaxField.getText());
-        int modProductMin = Integer.parseInt(productMinField.getText());
 
-        Product modProduct = new Product();
-        modProduct.setID(newProductID);
-        modProduct.setName(modProductName);
+        int modProductID = Integer.parseInt(productIDField.getText());
+        String modProductName = productNameField.getText();
+        int modProductInv = 0;
+        Double modProductPrice = 0.0;
+        int modProductMax = 0;
+        int modProductMin = 0;
+
         try {
-             modProduct.setStock(modProductInv);
+            modProductInv = Integer.parseInt(productInvField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -77,7 +75,7 @@ public class ModifyProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            modProduct.setPrice(modProductPrice);
+            modProductPrice = Double.parseDouble(productPriceField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -91,7 +89,7 @@ public class ModifyProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            modProduct.setMax(modProductMax);
+            modProductMax = Integer.parseInt(productMaxField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -105,7 +103,7 @@ public class ModifyProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            modProduct.setMin(modProductMin);
+            modProductMin = Integer.parseInt(productMinField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -118,6 +116,7 @@ public class ModifyProductForm implements Initializable {
             alert.setContentText("Please enter an amount");
             alert.showAndWait();
         }
+        Product modProduct =  new Product(modProductID, modProductName, modProductPrice, modProductInv, modProductMin, modProductMax);
         for(Part p : partsToAssociate){
             modProduct.addAssociatedPart(p);
         }

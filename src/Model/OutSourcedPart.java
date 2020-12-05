@@ -8,10 +8,18 @@ import Model.Part;
  */
 public class OutSourcedPart extends Part {
 
-    public OutSourcedPart(){}
-
     private String companyName;
 
+    /**
+     * This is the constructor method. This method creates OutSourced part objects.
+     * @param id
+     * @param name
+     * @param price
+     * @param stock
+     * @param min
+     * @param max
+     * @param companyName
+     */
     public OutSourcedPart(int id, String name, double price, int stock, int min, int max, String companyName) {
         super(id, name, price, stock, min, max);
         this.companyName = companyName;

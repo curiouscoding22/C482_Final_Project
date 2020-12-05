@@ -16,10 +16,7 @@ public class Product {
     private int max;
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
-    /**
-     * This is the empty constructor. It is used to create an instance of the product class.
-     */
-    public Product(){}
+
 
     /**
      * This is the full constructor. This is used to create full Product objects.

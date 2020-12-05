@@ -92,18 +92,16 @@ public class ModifyPartForm implements Initializable {
 
         int newID = Integer.parseInt(partIDField.getText());
         String newName = partNameField.getText();
-        String newInv = partInvField.getText();
-        String newPrice = partPriceField.getText();
-        String newMax = partMaxInvField.getText();
-        String newMin = partMinInvField.getText();
-        String newSource = partSourceField.getText();
+        int newInv = 0;
+        double newPrice = 0;
+        int newMax = 0;
+        int newMin = 0;
+        int machineID = 0;
+        String companyName = "";
 
-        if(source.getSelectedToggle().equals(inhouseRadioButton)) {
-            InHousePart newInhousePart = new InHousePart();
-            newInhousePart.setId(newID);
-            newInhousePart.setName(newName);
+        if (source.getSelectedToggle().equals(inhouseRadioButton)) {
             try {
-                newInhousePart.setStock(Integer.parseInt(newInv));
+                newInv = Integer.parseInt(partInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -117,7 +115,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setPrice(Double.parseDouble(newPrice));
+                newPrice = Double.parseDouble(partPriceField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -131,7 +129,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setMax(Integer.parseInt(newMax));
+                newMax = Integer.parseInt(partMaxInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -145,7 +143,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setMin(Integer.parseInt(newMin));
+                newMin = Integer.parseInt(partMinInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -159,7 +157,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setMachineID(Integer.parseInt(newSource));
+                machineID = Integer.parseInt(partSourceField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -172,19 +170,16 @@ public class ModifyPartForm implements Initializable {
                 alert.setContentText("Please enter the Machine ID number");
                 alert.showAndWait();
             }
-            if(isValid(newInhousePart)){
-                Inventory.updatePart(newInhousePart);
+            InHousePart modInhousePart = new InHousePart(newID, newName, newPrice, newInv, newMin, newMax, machineID);
+            if (isValid(modInhousePart)) {
+                Inventory.updatePart(modInhousePart);
                 Stage stage = (Stage) cancelButton.getScene().getWindow();
                 stage.close();
             }
         }
-
-        if(source.getSelectedToggle().equals(outsourcedRadioButton)) {
-            OutSourcedPart newOutsourcePart = new OutSourcedPart();
-            newOutsourcePart.setId(newID);
-            newOutsourcePart.setName(newName);
+        if (source.getSelectedToggle().equals(outsourcedRadioButton)) {
             try {
-                newOutsourcePart.setStock(Integer.parseInt(newInv));
+                newInv = Integer.parseInt(partInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -198,7 +193,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setPrice(Double.parseDouble(newPrice));
+                newPrice = Double.parseDouble(partPriceField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -212,7 +207,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setMax(Integer.parseInt(newMax));
+                newMax = Integer.parseInt(partMaxInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -226,7 +221,7 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setMin(Integer.parseInt(newMin));
+                newMin = Integer.parseInt(partMinInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -240,15 +235,23 @@ public class ModifyPartForm implements Initializable {
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setCompanyName(newSource);
+                companyName = partSourceField.getText();
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Machine ID must be a number");
+                alert.showAndWait();
+
             } catch (NullPointerException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
-                alert.setContentText("Please enter the Company Name");
+                alert.setContentText("Please enter the Machine ID number");
                 alert.showAndWait();
             }
-            if(isValid(newOutsourcePart)){
-                Inventory.updatePart(newOutsourcePart);
+
+            Part modOutsource = new OutSourcedPart(newID, newName, newPrice, newInv, newMax, newMin, companyName);
+            if (isValid(modOutsource)) {
+                Inventory.updatePart(modOutsource);
                 Stage stage = (Stage) cancelButton.getScene().getWindow();
                 stage.close();
             }

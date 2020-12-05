@@ -1,6 +1,14 @@
 package Model;
 
 
+/**
+ * Supplied class Part.java
+ */
+
+/**
+ *
+ * @author Blake Lambert, Student #1337333
+ */
 public abstract class Part {
     private int id;
     private String name;
@@ -8,18 +16,6 @@ public abstract class Part {
     private int stock;
     private int min;
     private int max;
-
-    public Part(){}
-
-    /**
-     * Constructor for the Part class. This creates Part objects.
-     * @param id
-     * @param name
-     * @param price
-     * @param stock
-     * @param min
-     * @param max
-     */
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;

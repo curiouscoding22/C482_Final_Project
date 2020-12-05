@@ -80,18 +80,16 @@ public class AddPartForm implements Initializable{
 
         int newID = Integer.parseInt(partIDField.getText());
         String newName = partNameField.getText();
-        String newInv = partInvCountField.getText();
-        String newPrice = partPriceField.getText();
-        String newMax = partMaxInvField.getText();
-        String newMin = partMinInvField.getText();
-        String newSource = partSourceField.getText();
+        int newInv = 0;
+        double newPrice = 0;
+        int newMax = 0;
+        int newMin = 0;
+        int machineID = 0;
+        String companyName = "";
 
-        if(source.getSelectedToggle().equals(inhouseRadioButton)) {
-            InHousePart newInhousePart = new InHousePart();
-            newInhousePart.setId(newID);
-            newInhousePart.setName(newName);
+        if (source.getSelectedToggle().equals(inhouseRadioButton)) {
             try {
-                newInhousePart.setStock(Integer.parseInt(newInv));
+                newInv = Integer.parseInt(partInvCountField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -105,7 +103,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setPrice(Double.parseDouble(newPrice));
+                newPrice = Double.parseDouble(partPriceField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -119,7 +117,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setMax(Integer.parseInt(newMax));
+                newMax = Integer.parseInt(partMaxInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -133,7 +131,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setMin(Integer.parseInt(newMin));
+                newMin = Integer.parseInt(partMinInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -147,7 +145,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newInhousePart.setMachineID(Integer.parseInt(newSource));
+                machineID = Integer.parseInt(partSourceField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -160,19 +158,19 @@ public class AddPartForm implements Initializable{
                 alert.setContentText("Please enter the Machine ID number");
                 alert.showAndWait();
             }
-            if(isValidPart(newInhousePart)){
-                Inventory.addPart(newInhousePart);
+            /**
+             * One runtime error I encountered occurred while trying to save a part to the main screen.  When I would click the save button which would take the entered part information and create a new, validated part, the application would throw a NullPointerException. I had added try/catch blocks to each of the times the input was converted to the appropriate variable type but none of those exception alerts was being shown to point out where the error was coming from. I set a breakpoint at the line where the Inhouse part is created and used the debugger to determine where the error was. The maximum inventory variable was null and causing the exception though there was input in the text field. After terminating the application, I reviewed the fxid of the max field and noticed it didn't match with the TextField variable that was initialized in this class. Once the variable name matched with the fxid the variable was assigned correctly and the part was saved to the inventory.
+             */
+            Part newInhouse = new InHousePart(newID, newName, newPrice, newInv, newMax, newMin, machineID);
+            if (isValidPart(newInhouse)) {
+                Inventory.addPart(newInhouse);
                 Stage stage = (Stage) cancelButton.getScene().getWindow();
                 stage.close();
             }
         }
-
-        if(source.getSelectedToggle().equals(outsourcedRadioButton)) {
-            OutSourcedPart newOutsourcePart = new OutSourcedPart();
-            newOutsourcePart.setId(newID);
-            newOutsourcePart.setName(newName);
+        if (source.getSelectedToggle().equals(outsourcedRadioButton)) {
             try {
-                newOutsourcePart.setStock(Integer.parseInt(newInv));
+                newInv = Integer.parseInt(partInvCountField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -186,7 +184,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setPrice(Double.parseDouble(newPrice));
+                newPrice = Double.parseDouble(partPriceField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -200,7 +198,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setMax(Integer.parseInt(newMax));
+                newMax = Integer.parseInt(partMaxInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -214,7 +212,7 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setMin(Integer.parseInt(newMin));
+                newMin = Integer.parseInt(partMinInvField.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
@@ -228,20 +226,28 @@ public class AddPartForm implements Initializable{
                 alert.showAndWait();
             }
             try {
-                newOutsourcePart.setCompanyName(newSource);
+                companyName = partSourceField.getText();
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Input Error");
+                alert.setContentText("Machine ID must be a number");
+                alert.showAndWait();
+
             } catch (NullPointerException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Input Error");
-                alert.setContentText("Please enter the Company Name");
+                alert.setContentText("Please enter the Machine ID number");
                 alert.showAndWait();
             }
-            if(isValidPart(newOutsourcePart)){
-                Inventory.addPart(newOutsourcePart);
+            Part newOutsource = new OutSourcedPart(newID, newName, newPrice, newInv, newMax, newMin, companyName);
+            if (isValidPart(newOutsource)) {
+                Inventory.addPart(newOutsource);
                 Stage stage = (Stage) cancelButton.getScene().getWindow();
                 stage.close();
             }
         }
     }
+
 
     /**
      * This is the cancel method. When the user clicks the cancel button, this method confirms the action then closes the add part screen without saving information.

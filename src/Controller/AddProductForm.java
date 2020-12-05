@@ -129,16 +129,16 @@ public class AddProductForm implements Initializable {
     public void saveNewProduct(ActionEvent actionEvent) throws NumberFormatException, NullPointerException, ValidationException {
         int newProductID = Integer.parseInt(productIDField.getText());
         String newProductName = productNameField.getText();
-        int newProductInv = Integer.parseInt(productInvField.getText());
-        Double newProductPrice = Double.parseDouble(productPriceField.getText());
-        int newProductMax = Integer.parseInt(productMaxField.getText());
-        int newProductMin = Integer.parseInt(productMinField.getText());
+        int newProductInv = 0;
+        Double newProductPrice = 0.0;
+        int newProductMax = 0;
+        int newProductMin = 0;
 
-        Product newProduct = new Product();
-        newProduct.setID(newProductID);
-        newProduct.setName(newProductName);
+//        Product newProduct = new Product();
+//        newProduct.setID(newProductID);
+//        newProduct.setName(newProductName);
         try {
-            newProduct.setStock(newProductInv);
+            newProductInv = Integer.parseInt(productInvField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -152,7 +152,7 @@ public class AddProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            newProduct.setPrice(newProductPrice);
+            newProductPrice = Double.parseDouble(productPriceField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -166,7 +166,7 @@ public class AddProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            newProduct.setMax(newProductMax);
+            newProductMax = Integer.parseInt(productMaxField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -180,7 +180,7 @@ public class AddProductForm implements Initializable {
             alert.showAndWait();
         }
         try {
-            newProduct.setMin(newProductMin);
+            newProductMin = Integer.parseInt(productMinField.getText());
         } catch (NumberFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Input Error");
@@ -193,6 +193,7 @@ public class AddProductForm implements Initializable {
             alert.setContentText("Please enter an amount");
             alert.showAndWait();
         }
+        Product newProduct =  new Product(newProductID, newProductName, newProductPrice, newProductInv, newProductMax, newProductMin);
         for(Part p : partsToAssociate){
             newProduct.addAssociatedPart(p);
         }

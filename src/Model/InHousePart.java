@@ -8,11 +8,6 @@ public class InHousePart extends Part {
     private int machineID;
 
     /**
-     * This is the default empty constructor.
-     */
-    public InHousePart(){}
-
-    /**
      * This is the full constructor for making Inhouse parts
      * @param id
      * @param name
