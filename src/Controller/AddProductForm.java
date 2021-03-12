@@ -121,9 +121,9 @@ public class AddProductForm implements Initializable {
     /**
      *This is the save method. This method takes the information entered in the text fields and converts it to the specified data types to create a product object that is added to the Inventory.
      * @param actionEvent the click on the save button.
-     * @throws NumberFormatException
-     * @throws NullPointerException
-     * @throws ValidationException
+     * @throws NumberFormatException thrown if the user enters text into a field that should be a number
+     * @throws NullPointerException thrown if the entered information entered does not fit the valid format
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
      */
     @FXML
     public void saveNewProduct(ActionEvent actionEvent) throws NumberFormatException, NullPointerException, ValidationException {
@@ -226,7 +226,7 @@ public class AddProductForm implements Initializable {
      *This is the validation method. This method reviews the entered information in each field and confirms it is valid. If it isn't the method displays a descriptive error method to prompt the user to correct it.
      * @param product the produce which is being checked.
      * @return true.
-     * @throws ValidationException
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
      */
     public boolean isValidProduct(Product product) throws ValidationException{
 

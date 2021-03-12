@@ -84,9 +84,9 @@ public class ModifyPartForm implements Initializable {
 
     /**This is the save method for modified parts. This method takes the information from the text fields and saves a new version of the part in the main screen part table.
      * @param actionEvent this is the event that occurs when the user clicks the save button.
-     * @throws NumberFormatException
-     * @throws ValidationException
-     * @throws NullPointerException
+     * @throws NumberFormatException thrown if the user enters text into a field that should be a number
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
+     * @throws NullPointerException thrown if the entered information entered does not fit the valid format
      */
     public void saveModifiedPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
 
@@ -312,7 +312,7 @@ public class ModifyPartForm implements Initializable {
 
     /**This is the cancel method. This method is an action performed when the user clicks the cancel button. It closes the modify screen and directs the user to the main screen.
      *
-     * @param actionEvent
+     * @param actionEvent The user's click on the "Cancel" button
      * @throws IOException
      */
     public void cancelModifyPart(ActionEvent actionEvent) throws IOException {

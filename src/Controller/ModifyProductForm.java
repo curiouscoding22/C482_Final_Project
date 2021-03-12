@@ -48,8 +48,8 @@ public class ModifyProductForm implements Initializable {
 
     /**
      * This is the save method. This method takes the modified product information and overwrites the existing product when the save button is clicked by the mouse.
-     * @param actionEvent
-     * @throws ValidationException
+     * @param actionEvent the user click on the "Save" button
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
      */
     public void saveModifiedProduct(ActionEvent actionEvent) throws ValidationException {
 
@@ -131,7 +131,7 @@ public class ModifyProductForm implements Initializable {
      * This method is a validation method. This is used to confirm that the information entered in the fields conforms to valid product information.
      * @param product
      * @return true
-     * @throws ValidationException
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
      */
     public boolean isValidProduct(Product product) throws ValidationException{
 
@@ -198,7 +198,7 @@ public class ModifyProductForm implements Initializable {
     }
 
     /**
-     *This method is the event associated with the cancel button. When clicked by the user, it promptd them to confirm their action and closes the stage without saving.
+     *This method is the event associated with the cancel button. When clicked by the user, it prompts them to confirm their action and closes the stage without saving.
      * @param actionEvent the user click on the cancel button.
      */
     public void cancelModifyProduct(ActionEvent actionEvent) {
@@ -269,7 +269,7 @@ public class ModifyProductForm implements Initializable {
     }
 
     /**
-     * This method initalizes the tables on the screen and populates them with the part objects.
+     * This method initializes the tables on the screen and populates them with the part objects.
      * @param url
      * @param resourceBundle
      */

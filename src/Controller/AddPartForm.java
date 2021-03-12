@@ -53,7 +53,7 @@ public class AddPartForm implements Initializable{
         }
     }
 
-    /**This is the method for generating part numbers. The number is randomly generated from 1 to 999999 and is checked against existing part numbers to ensure there aren't duplicats.
+    /**This is the method for generating part numbers. The number is randomly generated from 1 to 999999 and is checked against existing part numbers to ensure there aren't duplicates.
      * @return a random number to be used for an ID number
      */
     public int assignPartNumber(){
@@ -69,14 +69,16 @@ public class AddPartForm implements Initializable{
         return randPartID;
     }
 
-    /**This is the save part method. This method creates a new part with the user entered information and adds it to the inventory for display.
+    /**This is the save part method. This method creates a new part with the user entered information and adds it to the inventory for display.  One runtime error I encountered occurred while trying to save a part to the main screen.  When I would click the save button which would take the entered part information and create a new, validated part, the application would throw a NullPointerException. I had added try/catch blocks to each of the times the input was converted to the appropriate variable type but none of those exception alerts was being shown to point out where the error was coming from. I set a breakpoint at the line where the Inhouse part is created and used the debugger to determine where the error was. The maximum inventory variable was null and causing the exception though there was input in the text field. After terminating the application, I reviewed the fxid of the max field and noticed it didn't match with the TextField variable that was initialized in this class. Once the variable name matched with the fxid the variable was assigned correctly and the part was saved to the inventory.
      * @param actionEvent saves a new part to the part table
-     * @throws NumberFormatException
-     * @throws ValidationException
-     * @throws NullPointerException
+     * @throws NumberFormatException thrown if the user enters text into a field that should be a number
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
+     * @throws NullPointerException thrown if any of the fields are left blank
+     *
+     *
      */
     @FXML
-    private void saveNewPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
+    public void saveNewPart(ActionEvent actionEvent) throws NumberFormatException, ValidationException, NullPointerException {
 
         int newID = Integer.parseInt(partIDField.getText());
         String newName = partNameField.getText();
@@ -158,9 +160,6 @@ public class AddPartForm implements Initializable{
                 alert.setContentText("Please enter the Machine ID number");
                 alert.showAndWait();
             }
-            /**
-             * One runtime error I encountered occurred while trying to save a part to the main screen.  When I would click the save button which would take the entered part information and create a new, validated part, the application would throw a NullPointerException. I had added try/catch blocks to each of the times the input was converted to the appropriate variable type but none of those exception alerts was being shown to point out where the error was coming from. I set a breakpoint at the line where the Inhouse part is created and used the debugger to determine where the error was. The maximum inventory variable was null and causing the exception though there was input in the text field. After terminating the application, I reviewed the fxid of the max field and noticed it didn't match with the TextField variable that was initialized in this class. Once the variable name matched with the fxid the variable was assigned correctly and the part was saved to the inventory.
-             */
             Part newInhouse = new InHousePart(newID, newName, newPrice, newInv, newMax, newMin, machineID);
             if (isValidPart(newInhouse)) {
                 Inventory.addPart(newInhouse);
@@ -251,10 +250,10 @@ public class AddPartForm implements Initializable{
 
     /**
      * This is the cancel method. When the user clicks the cancel button, this method confirms the action then closes the add part screen without saving information.
-     * @param actionEvent
+     * @param actionEvent user clicking on the "Cancel" button
      */
     @FXML
-    private void cancelAddPart(ActionEvent actionEvent) {
+    public void cancelAddPart(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cancel Add Part");
         alert.setContentText("Are you sure you want to cancel?");
@@ -270,7 +269,7 @@ public class AddPartForm implements Initializable{
      * This is the validation method. This method checks the input in the text fields to ensure it is valid and throws an exception with a description to prompt the user to fix if not.
      * @param part the part that is being checked.
      * @return true
-     * @throws ValidationException
+     * @throws ValidationException thrown if the entered information entered does not fit the valid format
      */
     public boolean isValidPart(Part part) throws ValidationException{
 
